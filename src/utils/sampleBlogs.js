@@ -1,3 +1,4 @@
+// Array of objects, each being a separate blog post.
 const blogPosts = [
   {
     createdAt: "2022-03-22T10:36:37.176Z",
