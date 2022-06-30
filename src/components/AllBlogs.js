@@ -6,14 +6,27 @@ import React from "react";
 import { useSearchParams, Outlet } from "react-router-dom";
 
 // {blogPosts} is accessible because in App.js it is passed into the <Allblogs /> component as props.
-const AllBlogs = ({ blogPosts }) => {
+const AllBlogs = ({ allBlogs }) => {
+  // Search params allows access to .get => sortOrder, sortField, limit, page ... in order to modify search in the URL.
   const [searchParams, setSearchParams] = useSearchParams();
-  const sortOrder = searchParams.get("sortOrder") || "asc";
-  const sortField = searchParams.get("sortField") || "createdAt";
-  const limit = searchParams.get("limit") || 0;
-  const page = searchParams.get("page") || 0;
-  const copyOfBlogPosts = blogPosts;
 
+  // Set the sort order => ascending, descending by the sort field
+  const sortOrder = searchParams.get("sortOrder") || "asc";
+
+  // Choose what parameter to sort by => id, title, author ...etc
+  const sortField = searchParams.get("sortField") || "id";
+
+  // Limit sets how many items to display on the page.
+  const limit = searchParams.get("limit") || allBlogs.length;
+
+  // Page displays what individual page you want.
+  const page = searchParams.get("page") || 0;
+
+  // A copy of 'allBlogs' to be manipulated and rendered to the viewer, so the original is not modified.
+  const copyOfBlogPosts = allBlogs;
+
+  // a & b in this instance are blogs from 'allBlogs'
+  // the .sort method takes this function as an argument and compares each new index to the previous indices as it iterates through the sorting process.
   const compare = (a, b) => {
     if (sortOrder.toLowerCase() === "asc") {
       if (a[sortField] < b[sortField]) {
@@ -36,6 +49,7 @@ const AllBlogs = ({ blogPosts }) => {
   };
 
   const limitPage = (blogs) => {
+    //
     let blogIndex = limit * page;
     let returnBlogs = [];
     for (let i = 0; i < limit; i++) {
@@ -52,8 +66,8 @@ const AllBlogs = ({ blogPosts }) => {
 
   return (
     <>
-      &nbsp;
-      <div>All Blogs</div>
+      <br />
+      All Blogs
       <ul>
         {limitPageBlogs.map((blog, index) => {
           return (

@@ -7,7 +7,7 @@ import { useParams } from "react-router-dom";
 // passing in {blogPosts} as props in <BlogPost /> in the App.js file gives us access to it here.
 const BlogPost = ({ blogPosts }) => {
   let params = useParams();
-  const blog = blogPosts.find((blog) => blog.id === Number(params.blogId));
+  const blog = blogPosts.find((blog) => blog.id === parseInt(params.blogId));
   return (
     <div>
       <p>Title: {blog.title}</p>
