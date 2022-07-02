@@ -6,12 +6,13 @@ const SubmitBlog = ({ allBlogs, setAllBlogs }) => {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [text, setText] = useState("");
+  // can call navigate to automatically render another page.
   const navigate = useNavigate();
 
   return (
     <div>
       <br></br>
-      <label>Title</label>
+      <label>Title: &nbsp;</label>
       <input
         id="title"
         size="40"
@@ -24,8 +25,8 @@ const SubmitBlog = ({ allBlogs, setAllBlogs }) => {
       ></input>
       <br></br>
       <br></br>
-      <label>Text</label>
-      <input
+      <label>Text: &nbsp;</label>
+      <textarea
         id="text"
         size="75"
         type="text"
@@ -34,10 +35,10 @@ const SubmitBlog = ({ allBlogs, setAllBlogs }) => {
           const newText = e.target.value;
           setText(newText);
         }}
-      ></input>
+      ></textarea>
       <br></br>
       <br></br>
-      <label>Author</label>
+      <label>Author: &nbsp;</label>
       <input
         id="author"
         size="40"
@@ -67,6 +68,8 @@ const SubmitBlog = ({ allBlogs, setAllBlogs }) => {
             setTitle("");
             setText("");
             setAuthor("");
+            // since navigate runs last, after the 'click' the code processes all this information and then 'navigates' to /blogs essentially refreshing the page
+            // and rendering the newly added blog at the end of the list.
             navigate("/blogs");
           })
         }
